@@ -1,0 +1,80 @@
+
+Mario_and_Enemies.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+next game plane
+  rotate: false
+  xy: 1, 607
+  size: 720, 408
+  orig: 720, 408
+  offset: 0, 0
+  index: -1
+tileset_gutter
+  rotate: false
+  xy: 1, 101
+  size: 594, 504
+  orig: 594, 504
+  offset: 0, 0
+  index: -1
+Mario_and_Enemies
+  rotate: false
+  xy: 1, 35
+  size: 512, 64
+  orig: 512, 64
+  offset: 0, 0
+  index: -1
+big_mario
+  rotate: false
+  xy: 1, 1
+  size: 336, 32
+  orig: 336, 32
+  offset: 0, 0
+  index: -1
+little_mario
+  rotate: false
+  xy: 723, 999
+  size: 224, 16
+  orig: 224, 16
+  offset: 0, 0
+  index: -1
+turtle
+  rotate: false
+  xy: 597, 581
+  size: 96, 24
+  orig: 96, 24
+  offset: 0, 0
+  index: -1
+goomba
+  rotate: false
+  xy: 515, 83
+  size: 48, 16
+  orig: 48, 16
+  offset: 0, 0
+  index: -1
+fireball
+  rotate: false
+  xy: 339, 25
+  size: 32, 8
+  orig: 32, 8
+  offset: 0, 0
+  index: -1
+mushroom
+  rotate: false
+  xy: 723, 981
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+
+Mario_and_Enemies2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+tmw_desert_spacing
+  rotate: false
+  xy: 1, 1
+  size: 533, 400
+  orig: 533, 400
+  offset: 0, 0
+  index: -1
