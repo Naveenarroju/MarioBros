@@ -49,56 +49,58 @@ public class PlayScreen implements Screen  {
 
 
 
-    public PlayScreen(MarioBros game){
-        atlas = new TextureAtlas("Mario_and_Enemies.text");
-        this.game = game;
+    public PlayScreen(MarioBros game){  //1.1 game here is what was passed as an argument
+        atlas = new TextureAtlas("Mario_and_Enemies.pack");
+        this.game = game; // this.game is the game object of the playscreen method
         gamecam = new OrthographicCamera();
         gamePort = new StretchViewport(MarioBros.V_WIDTH / MarioBros.PPM ,MarioBros.V_HEIFHT/MarioBros.PPM, gamecam);
-        hud = new Hud(game.batch);
         gamecam.setToOrtho(false,MarioBros.V_WIDTH,MarioBros.V_HEIFHT);
+        hud = new Hud(game.batch);
 
 
 
 
 
-        mapLoader = new TmxMapLoader(); //used to load the map from the tool TMX
+        mapLoader = new TmxMapLoader(); //1.2used to load the map from the tool TMX
         map = mapLoader.load("level1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1/ MarioBros.PPM);  //renders the TiledMap on to the screen
+        renderer = new OrthogonalTiledMapRenderer(map, 1/ MarioBros.PPM);  //1.3 renders the TiledMap on to the screen
         gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2, 0);
 
 
         world = new World(new Vector2(0,-10), true); //gravity and sleep for reducing the processor usage
         b2br = new Box2DDebugRenderer();
 
-        new B2WorldCreator(world,map);
+        new B2WorldCreator(world,map); //1.4 loads the objects from the MAP and create the BOX2D objects
 
-            player = new Mario(world, this);
+            player = new Mario(world, this); //1.5 loads the player class object(Mario) with all the features
     }
 
     public TextureAtlas getAtlas(){
         return atlas;
-    }
+    } //returns the back to MarioBros game class
 
     @Override
     public void show() {
     }
 
-    private void handleInput(float dt) {
+    private void handleInput(float dt) { //2.4 handleinput method is called
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
             player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
-        if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT)) && player.b2body.getLinearVelocity().x <=2)
-            player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(), true);
+//        System.out.println("world Centre"+player.b2body.getWorldCenter());
+        //System.out.println("old Linear Velocity:"+player.b2body.getLinearVelocity());
+        if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT)) && player.b2body.getLinearVelocity().x <=2) // need to work on this???
+              player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(), true);
         if ((Gdx.input.isKeyPressed(Input.Keys.LEFT)) && player.b2body.getLinearVelocity().x >=-2)
             player.b2body.applyLinearImpulse(new Vector2(-0.1f,0),player.b2body.getWorldCenter(), true);
     }
 
-    public void update(float dt){
-        handleInput(dt);
+    public void update(float dt){ //2.2 this is called from the render method of playscreen class
+        handleInput(dt); //2.3 handleInput method is called to handle input key events
 
-        world.step(1/60f, 6, 2 );
+        world.step(1/60f, 6, 2 ); //2.5 in 60f means 60 frames in 1 sec, mario renders 60 time in one sec. when there is any change
 
-        player.update(dt);
+        player.update(dt);  //3 update method is called from MarioBros w.r.t dt time
         gamecam.position.x = player.b2body.getPosition().x;
 
         gamecam.update(); //always update the cam anytime it moves
@@ -111,14 +113,14 @@ public class PlayScreen implements Screen  {
     public void render(float delta) {
 
         game.batch.setProjectionMatrix(gamePort.getCamera().combined );
-        update(delta);
+        update(delta); //2.2 update method is called from the playscreen render which is called by MarioBros render which is the Main loop method
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render(); //its render method from BatchTiledMapRenderer extended by OrthogonalTiledMapRenderer
 
-        b2br.render(world, gamecam.combined);
+        b2br.render(world, gamecam.combined); //the box2d create methods are rendered
 
 
 

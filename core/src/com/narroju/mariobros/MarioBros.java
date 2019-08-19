@@ -19,12 +19,12 @@ public class MarioBros extends Game { //loads and exectues all the Game class
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new PlayScreen(this)); // sets the screen of Game class to PlayScreen
+		setScreen(new PlayScreen(this)); // 1. sets the screen of Game class to PlayScreen
 	}
 
 	@Override
 	public void render () {
-		super.render();  //render of Game class is called and as the screen is not null(PlayScreen extending Screen has been passed to it)
+		super.render();  //2. render of main Game class is called and as the screen is not null(PlayScreen extending Screen has been passed to it)
 	}
 	
 
