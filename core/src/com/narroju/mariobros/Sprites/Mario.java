@@ -3,9 +3,11 @@ package com.narroju.mariobros.Sprites;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -53,7 +55,7 @@ public class Mario extends Sprite {
     }
 
     public void update(float dt) { //3.1 attaches the mario to the fixture
-        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2); //sets the mario sprite to hold on to the fixture
+        //setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2); //sets the mario sprite to hold on to the fixture
         setRegion(getFrame(dt)); //3.2 this method is return the appropriate method as sprites texture region
     }
 
@@ -121,11 +123,21 @@ public class Mario extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
-        FixtureDef fDef = new FixtureDef();
+        FixtureDef fDef = new FixtureDef(); //fixtureDef's object can we used as reference for as many as fixtures
         CircleShape shape = new CircleShape();
         shape.setRadius(6 / MarioBros.PPM);
 
         fDef.shape = shape;
         b2body.createFixture(fDef);
+
+        //collision detection code
+        EdgeShape head = new EdgeShape(); //the line segment two different points
+        head.set(new Vector2(-2 / MarioBros.PPM, 6 / MarioBros.PPM), new Vector2(2 / MarioBros.PPM, 6 / MarioBros.PPM));
+        //relation to the bodies origin that is (0,0), center of the body
+        fDef.shape = head;
+        fDef.isSensor = true;
+
+        b2body.createFixture(fDef).setUserData("head"); //this will uniquely identify the
+
     }
 }

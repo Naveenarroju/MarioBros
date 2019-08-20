@@ -6,26 +6,19 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.narroju.mariobros.MarioBros;
-import com.narroju.mariobros.Sences.Hud;
-import com.narroju.mariobros.Sprites.Mario;
-
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.narroju.mariobros.MarioBros;
+import com.narroju.mariobros.Sences.Hud;
+import com.narroju.mariobros.Sprites.Mario;
 import com.narroju.mariobros.Tools.B2WorldCreator;
+import com.narroju.mariobros.Tools.WorldContactListener;
 
 
 public class PlayScreen implements Screen  {
@@ -73,6 +66,8 @@ public class PlayScreen implements Screen  {
         new B2WorldCreator(world,map); //1.4 loads the objects from the MAP and create the BOX2D objects
 
             player = new Mario(world, this); //1.5 loads the player class object(Mario) with all the features
+
+        world.setContactListener(new WorldContactListener());
     }
 
     public TextureAtlas getAtlas(){
@@ -132,7 +127,7 @@ public class PlayScreen implements Screen  {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined );
         hud.stage.draw();
 
-
+        world.setContactListener(new WorldContactListener());
     }
 
     @Override

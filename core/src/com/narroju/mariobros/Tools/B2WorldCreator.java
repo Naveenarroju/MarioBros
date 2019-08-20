@@ -59,14 +59,14 @@ public class B2WorldCreator {
             Rectangle rect =  ((RectangleMapObject) object).getRectangle();
 
 
-            bdef.type  = BodyDef.BodyType.StaticBody;
+            /*bdef.type  = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX() + rect.getWidth()/2)/MarioBros.PPM, (rect.getY() + rect.getHeight()/2)/MarioBros.PPM);
             body = world.createBody(bdef);
 
             shape.setAsBox((rect.getWidth()/2)/MarioBros.PPM, (rect.getHeight()/2)/MarioBros.PPM);
             fdef.shape = shape;
-            body.createFixture(fdef);
-            //new Brick(world,map,rect);
+            body.createFixture(fdef);*/
+            new Brick(world, map, rect);
 
         }
 
