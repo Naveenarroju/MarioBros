@@ -20,7 +20,8 @@ public class WorldContactListener implements ContactListener { //is something wh
             //object can be any thing ground pipe or etc..
 
             if (object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {
-                ((InteractiveTileObject) object.getUserData()).onHeadHit();
+                ((InteractiveTileObject) object.getUserData()).onHeadHit(); //the main abstracted method is overrided by the
+                //object(Brick, coin etc..) and executes its own logic and is called back here
             }
         }
 

@@ -1,6 +1,5 @@
 package com.narroju.mariobros.Sences;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -20,13 +19,10 @@ public class Hud implements Disposable{
 
     private Integer worldTimer;
     private float timeCount;
-    private Integer score;
-
-
-
-    Label countdownLabel;
-    Label scoreLabel;
+    static Label scoreLabel;
+    private static Integer score;
     Label timeLabel;
+    Label countdownLabel;
     Label levelLabel;
     Label worldLabel;
     Label marioLabel;
@@ -59,6 +55,20 @@ public class Hud implements Disposable{
         table.add(countdownLabel).expandX();
 
         stage.addActor(table);
+    }
+
+    public static void addScore(int value) {
+        score += value;
+        scoreLabel.setText(String.format("%06d", score));
+    }
+
+    public void update(float dt) {
+        timeCount += dt;
+        if (timeCount >= 1) {
+            worldTimer--;
+            countdownLabel.setText(String.format("%03d", worldTimer));
+            timeCount = 0;
+        }
     }
 
     @Override

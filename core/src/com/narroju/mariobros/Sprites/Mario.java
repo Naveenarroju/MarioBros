@@ -55,7 +55,7 @@ public class Mario extends Sprite {
     }
 
     public void update(float dt) { //3.1 attaches the mario to the fixture
-        //setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2); //sets the mario sprite to hold on to the fixture
+        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2); //sets the mario sprite to hold on to the fixture
         setRegion(getFrame(dt)); //3.2 this method is return the appropriate method as sprites texture region
     }
 
@@ -123,9 +123,13 @@ public class Mario extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
+
         FixtureDef fDef = new FixtureDef(); //fixtureDef's object can we used as reference for as many as fixtures
         CircleShape shape = new CircleShape();
         shape.setRadius(6 / MarioBros.PPM);
+        //created for part 12
+        fDef.filter.categoryBits = MarioBros.MARIO_BIT; //defined what is this fixture
+        fDef.filter.maskBits = MarioBros.DEFAULT_BIT | MarioBros.COIN_BIT | MarioBros.BRICK_BIT; //what can mario collide with
 
         fDef.shape = shape;
         b2body.createFixture(fDef);

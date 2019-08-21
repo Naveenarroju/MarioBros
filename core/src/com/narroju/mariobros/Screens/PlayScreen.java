@@ -96,6 +96,9 @@ public class PlayScreen implements Screen  {
         world.step(1/60f, 6, 2 ); //2.5 in 60f means 60 frames in 1 sec, mario renders 60 time in one sec. when there is any change
 
         player.update(dt);  //3 update method is called from MarioBros w.r.t dt time
+        hud.update(dt);
+
+        //attach our gamecame to our player.x coordinate;
         gamecam.position.x = player.b2body.getPosition().x;
 
         gamecam.update(); //always update the cam anytime it moves
